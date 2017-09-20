@@ -1,17 +1,18 @@
 type committed =
   | Committed;
 
+let dispatch subject (thunk: ('a => 'committed) => 'committed) =>
+  thunk (
+    fun action => {
+      ignore (Most.Subject.next action subject);
+      Committed
+    }
+  );
+
 let make initialState reducer => {
   open Most;
   let subject = Subject.make ();
   let store = Subject.asStream subject |> scan reducer initialState;
-  /* let dispatch action => Subject.next action subject |> ignore; */
-  let dispatch (thunk: ('a => 'committed) => 'committed) =>
-    thunk (
-      fun action => {
-        ignore (Subject.next action subject);
-        Committed
-      }
-    );
-  (store, dispatch)
+  let dispatch_ = dispatch subject;
+  (store, dispatch_)
 };

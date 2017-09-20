@@ -5,8 +5,7 @@ let component = ReasonReact.statelessComponent "App";
 let make ::term ::dispatch _children => {
   let updateTerm event => {
     let newTerm = (ReactDOMRe.domElementToObj (ReactEventRe.Form.target event))##value;
-    dispatch (fun commit => commit (Actions.TermChange newTerm));
-    ()
+    dispatch (Store.Action (Actions.TermChange newTerm))
   };
   {
     ...component,

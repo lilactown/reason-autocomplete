@@ -2,14 +2,15 @@
 
 let component = ReasonReact.statelessComponent "App";
 
-let make ::term ::dispatch ::message _children => {
+let make ::term ::dispatch _children => {
   let updateTerm event => {
     let newTerm = (ReactDOMRe.domElementToObj (ReactEventRe.Form.target event))##value;
-    dispatch (Actions.TermChange newTerm)
+    dispatch (fun commit => commit (Actions.TermChange newTerm));
+    ()
   };
   {
     ...component,
-    render: fun self =>
+    render: fun _self =>
       <div className="App">
         <input className="search-bar" _type="text" value=term onChange=updateTerm />
       </div>

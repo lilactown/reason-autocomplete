@@ -12,8 +12,7 @@ let obs =
     (
       fun (state: Reducer.state) => {
         Js.log state.term;
-        ReactDOMRe.renderToElementWithId
-          <App term=state.term dispatch message="Welcome to React and Reason" /> "root"
+        ReactDOMRe.renderToElementWithId <App term=state.term dispatch /> "root"
       }
     )
     store;

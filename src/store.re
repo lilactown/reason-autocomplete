@@ -19,10 +19,17 @@ let dispatch subject payload =>
   | Thunk thunk => dispatchThunk subject thunk |> ignore
   };
 
-let make initialState reducer => {
+let make ::initialState ::reducer ::middleware=? () => {
   open Most;
   let subject = Subject.make ();
-  let store = Subject.asStream subject |> scan reducer initialState;
+  let store =
+    switch middleware {
+    | None => Subject.asStream subject |> scan reducer initialState
+    | Some mw =>
+      let store = Subject.asStream subject;
+      let mwStream = mw store;
+      merge store mwStream |> tap Js.log |> scan reducer initialState
+    };
   let dispatch_ = dispatch subject;
   (store, dispatch_)
 };

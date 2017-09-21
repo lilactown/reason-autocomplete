@@ -5,7 +5,8 @@ external register_service_worker : unit => unit =
 
 let initialState: Reducer.state = {term: ""};
 
-let (store, dispatch) = Store.make initialState Reducer.root;
+let (store, dispatch) =
+  Store.make ::initialState reducer::Reducer.root middleware::Middleware.fetch ();
 
 let obs =
   Most.observe

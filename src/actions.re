@@ -1,2 +1,3 @@
 type t =
-  | TermChange string;
+  | TermChange string
+  | SearchResults Js.Json.t;

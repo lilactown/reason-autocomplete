@@ -37,14 +37,14 @@ let fetch store =>
 let search store =>
   Most.(
     debounce 300 store
-    |> filter (
+    |> filterMap (
          fun actions =>
            switch actions {
-           | Actions.TermChange _term => Js.true_
-           | _ => Js.false_
+           | Actions.TermChange term => Some term
+           | _ => None
            }
        )
-    |> map (fun (Actions.TermChange term) => Get (searchUrl term))
+    |> map (fun term => Get (searchUrl term))
     |> fetch
     |> map (fun results => Actions.SearchResults results)
   );

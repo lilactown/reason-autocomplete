@@ -1,4 +1,7 @@
-type state = {term: string};
+type state = {
+  term: string,
+  results: list string
+};
 
 let root (state: state) action =>
   switch action {

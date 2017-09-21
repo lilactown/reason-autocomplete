@@ -1,3 +1,17 @@
+let filterMap p s =>
+  Most.(
+    s
+    |> map (fun v => p v)
+    |> filter (
+         fun v =>
+           switch v {
+           | Some _payload => Js.true_
+           | None => Js.false_
+           }
+       )
+    |> map (fun (Some v) => v)
+  );
+
 let searchUrl term =>
   "http://en.wikipedia.org/w/api.php?action=opensearch&format=json&search="
   ^ term
@@ -5,20 +19,18 @@ let searchUrl term =>
 
 type fetchReq =
   | Get string
-  | Post string Js.Json.t
-  | None;
+  | Post string Js.Json.t;
 
 let fetch store =>
   Most.(
     store
-    |> filter (
+    |> filterMap (
          fun
-         | Get _url => Js.true_
-         | _ => Js.false_
+         | Get url => Some url
+         | _ => None
        )
     |> flatMap (
-         fun
-         | Get url => fromPromise Js.Promise.(Bs_fetch.fetch url |> then_ Bs_fetch.Response.json)
+         fun url => fromPromise Js.Promise.(Bs_fetch.fetch url |> then_ Bs_fetch.Response.json)
        )
   );
 

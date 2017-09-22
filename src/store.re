@@ -28,7 +28,7 @@ let make ::initialState ::reducer ::middleware=? () => {
     | Some mw =>
       let store = Subject.asStream subject;
       let mwStream = mw store;
-      merge store mwStream |> tap Js.log |> scan reducer initialState
+      merge store mwStream |> scan reducer initialState
     };
   let dispatch_ = dispatch subject;
   (store, dispatch_)

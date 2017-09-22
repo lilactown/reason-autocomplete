@@ -11,11 +11,9 @@ let (store, dispatch) =
 let obs =
   Most.observe
     (
-      fun (state: Reducer.state) => {
-        Js.log state.term;
+      fun (state: Reducer.state) =>
         ReactDOMRe.renderToElementWithId
           <App term=state.term results=state.results selected=?state.selected dispatch /> "root"
-      }
     )
     store;
 

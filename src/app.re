@@ -15,6 +15,7 @@ let make ::term ::results ::selected ::dispatch _children => {
     let newTerm = (ReactDOMRe.domElementToObj (ReactEventRe.Form.target event))##value;
     dispatch (Store.Action (Actions.TermChange newTerm))
   };
+  let updateSelected i _event => dispatch (Store.Action (Actions.ChangeSelected (Some i)));
   {
     ...component,
     render: fun _self =>
@@ -36,7 +37,9 @@ let make ::term ::results ::selected ::dispatch _children => {
                               (ReasonReact.stringToElement title)
                             </li>
                           } else {
-                            <li key=title> (ReasonReact.stringToElement title) </li>
+                            <li key=title onMouseOver=(updateSelected i)>
+                              (ReasonReact.stringToElement title)
+                            </li>
                           }
                       )
                       results

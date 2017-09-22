@@ -1,6 +1,6 @@
 type state = {
   term: string,
-  results: list string
+  results: array string
 };
 
 let root (state: state) action =>

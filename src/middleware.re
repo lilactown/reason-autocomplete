@@ -46,5 +46,11 @@ let search store =>
        )
     |> map (fun term => Get (searchUrl term))
     |> fetch
-    |> map (fun results => Actions.SearchResults results)
+    |> map Decode.searchResults
+    |> map (
+         fun payload => {
+           let results = payload.(0);
+           Actions.SearchResults results
+         }
+       )
   );

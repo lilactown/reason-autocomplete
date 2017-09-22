@@ -3,7 +3,7 @@
 external register_service_worker : unit => unit =
   "default" [@@bs.module "./registerServiceWorker"];
 
-let initialState: Reducer.state = {term: "", results: []};
+let initialState: Reducer.state = {term: "", results: [||]};
 
 let (store, dispatch) =
   Store.make ::initialState reducer::Reducer.root middleware::Middleware.search ();

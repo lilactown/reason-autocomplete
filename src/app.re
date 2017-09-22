@@ -13,14 +13,21 @@ let make ::term ::results ::dispatch _children => {
       <div className="App">
         <input className="search-bar" _type="text" value=term onChange=updateTerm />
         <div>
-          <ul>
-            (
-              ReasonReact.arrayToElement (
-                Array.map
-                  (fun title => <li key=title> (ReasonReact.stringToElement title) </li>) results
-              )
-            )
-          </ul>
+          (
+            switch results {
+            | [||] => ReasonReact.nullElement
+            | results =>
+              <ul className="results">
+                (
+                  ReasonReact.arrayToElement (
+                    Array.map
+                      (fun title => <li key=title> (ReasonReact.stringToElement title) </li>)
+                      results
+                  )
+                )
+              </ul>
+            }
+          )
         </div>
       </div>
   }

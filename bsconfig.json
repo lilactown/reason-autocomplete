@@ -1,6 +1,6 @@
 {
   "name": "reason-scripts",
-  "sources": ["src"],
+  "sources": ["src", "src/components"],
   "bs-dependencies": [
     "reason-react",
     "bs-most",

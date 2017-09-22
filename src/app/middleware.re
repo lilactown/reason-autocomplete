@@ -57,5 +57,5 @@ let search store =>
     |> map (fun term => Get (searchUrl term))
     |> fetch
     |> map Decode.searchResults
-    |> map (fun (_, results, _, _) => Actions.SearchResults results)
+    |> map (fun (_, results, _, _) => Actions.ChangeResults results)
   );

@@ -1,3 +1,6 @@
+/**
+ * Based on `Json.Decode.pair`
+ */
 let quadruple first second third fourth json =>
   if (Js.Array.isArray json) {
     let source: array Js.Json.t = Obj.magic (json: Js.Json.t);
@@ -17,4 +20,9 @@ let quadruple first second third fourth json =>
     raise @@ Json.Decode.DecodeError ("Expected array, got " ^ Js.Json.stringify json)
   };
 
+
+/**
+ * Search results come back in the form
+ * ["term", ["Title of each result"], ["First line of each result"], ["URL of each result"]]
+ */
 let searchResults = Json.Decode.(quadruple string (array string) (array string) (array string));

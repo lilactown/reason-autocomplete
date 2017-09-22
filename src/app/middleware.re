@@ -1,13 +1,11 @@
 let filterMap p s =>
   Most.(
     s
-    |> map (fun v => p v)
+    |> map p
     |> filter (
-         fun v =>
-           switch v {
-           | Some _payload => Js.true_
-           | None => Js.false_
-           }
+         fun
+         | Some _payload => Js.true_
+         | None => Js.false_
        )
     |> map (fun (Some v) => v)
   );
@@ -17,6 +15,12 @@ let searchUrl term =>
   ^ term
   ^ "&origin=localhost&origin=*";
 
+
+/**
+ * Basic `fetch` middleware
+ * Simply dispatch a `Get` or `Post` and it fires off a fetch request
+ * to the URL.
+ */
 type fetchReq =
   | Get string
   | Post string Js.Json.t;
@@ -34,16 +38,21 @@ let fetch store =>
        )
   );
 
+
+/**
+ * More specific `search` middleware
+ * Reads in changes to the search input and maps that to
+ * the fetch middleware, after which it parses dispatches
+ * an action with the new results
+ */
 let search store =>
   Most.(
     debounce 300 store
     |> filterMap (
-         fun actions =>
-           switch actions {
-           | Actions.ChangeTerm "" => None
-           | Actions.ChangeTerm term => Some term
-           | _ => None
-           }
+         fun
+         | Actions.ChangeTerm "" => None
+         | Actions.ChangeTerm term => Some term
+         | _ => None
        )
     |> map (fun term => Get (searchUrl term))
     |> fetch

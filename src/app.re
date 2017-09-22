@@ -21,6 +21,7 @@ let make ::term ::results ::selected ::dispatch _children => {
     ...component,
     render: fun _self =>
       <div className="App">
+        (ReasonReact.stringToElement "Search: ")
         <input className="search-bar" _type="text" value=term onChange=updateTerm />
         <div>
           (

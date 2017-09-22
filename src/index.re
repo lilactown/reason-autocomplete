@@ -14,7 +14,7 @@ let obs =
       fun (state: Reducer.state) => {
         Js.log state.term;
         ReactDOMRe.renderToElementWithId
-          <App term=state.term results=state.results dispatch /> "root"
+          <App term=state.term results=state.results selected=1 dispatch /> "root"
       }
     )
     store;

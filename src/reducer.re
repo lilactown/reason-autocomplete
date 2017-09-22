@@ -6,7 +6,7 @@ type state = {
 
 let root (state: state) action =>
   switch action {
-  | Actions.TermChange term => {...state, term}
+  | Actions.ChangeTerm term => {...state, term}
   | Actions.SearchResults results => {...state, results}
   | Actions.ChangeSelected selected => {...state, selected}
   | Actions.ChooseSelected term => {...state, results: [||], selected: None, term}

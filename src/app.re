@@ -13,7 +13,7 @@ let isSelected selected current =>
 let make ::term ::results ::selected ::dispatch _children => {
   let updateTerm event => {
     let newTerm = (ReactDOMRe.domElementToObj (ReactEventRe.Form.target event))##value;
-    dispatch (Store.Action (Actions.TermChange newTerm))
+    dispatch (Store.Action (Actions.ChangeTerm newTerm))
   };
   let updateSelected i _event => dispatch (Store.Action (Actions.ChangeSelected (Some i)));
   let choose text _event => dispatch (Store.Action (Actions.ChooseSelected text));

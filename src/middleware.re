@@ -40,7 +40,7 @@ let search store =>
     |> filterMap (
          fun actions =>
            switch actions {
-           | Actions.TermChange term => Some term
+           | Actions.ChangeTerm term => Some term
            | _ => None
            }
        )

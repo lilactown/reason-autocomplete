@@ -16,6 +16,7 @@ let make ::term ::results ::selected ::dispatch _children => {
     dispatch (Store.Action (Actions.TermChange newTerm))
   };
   let updateSelected i _event => dispatch (Store.Action (Actions.ChangeSelected (Some i)));
+  let choose text _event => dispatch (Store.Action (Actions.ChooseSelected text));
   {
     ...component,
     render: fun _self =>
@@ -31,14 +32,14 @@ let make ::term ::results ::selected ::dispatch _children => {
                   ReasonReact.arrayToElement (
                     Array.mapi
                       (
-                        fun i title =>
+                        fun i text =>
                           if (isSelected selected i) {
-                            <li key=title style=selectedStyle>
-                              (ReasonReact.stringToElement title)
+                            <li key=text style=selectedStyle onClick=(choose text)>
+                              (ReasonReact.stringToElement text)
                             </li>
                           } else {
-                            <li key=title onMouseOver=(updateSelected i)>
-                              (ReasonReact.stringToElement title)
+                            <li key=text onMouseOver=(updateSelected i)>
+                              (ReasonReact.stringToElement text)
                             </li>
                           }
                       )

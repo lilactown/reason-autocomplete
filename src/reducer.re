@@ -9,4 +9,5 @@ let root (state: state) action =>
   | Actions.TermChange term => {...state, term}
   | Actions.SearchResults results => {...state, results}
   | Actions.ChangeSelected selected => {...state, selected}
+  | Actions.ChooseSelected term => {...state, results: [||], selected: None, term}
   };

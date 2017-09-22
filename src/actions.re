@@ -1,4 +1,5 @@
 type t =
   | TermChange string
   | SearchResults (array string)
-  | ChangeSelected (option int);
+  | ChangeSelected (option int)
+  | ChooseSelected string;

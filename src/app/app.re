@@ -8,19 +8,18 @@ let component = ReasonReact.statelessComponent "App";
  */
 let handleChangeTerm dispatch event => {
   let newTerm = (ReactDOMRe.domElementToObj (ReactEventRe.Form.target event))##value;
-  dispatch (Store.Action (Actions.ChangeTerm newTerm))
+  dispatch (Actions.ChangeTerm newTerm)
 };
 
-let handleChangeSelected dispatch id _event =>
-  dispatch (Store.Action (Actions.ChangeSelected (Some id)));
+let handleChangeSelected dispatch id _event => dispatch (Actions.ChangeSelected (Some id));
 
-let handleChoose dispatch text _event => dispatch (Store.Action (Actions.ChooseSelected text));
+let handleChoose dispatch text _event => dispatch (Actions.ChooseSelected text);
 
 let keySelectAction delta selected event => {
   ReactEventRe.Keyboard.preventDefault event;
   switch selected {
-  | Some id => Store.Action (Actions.ChangeSelected (Some (id + delta)))
-  | None => Store.Action (Actions.ChangeSelected (Some 0))
+  | Some id => Actions.ChangeSelected (Some (id + delta))
+  | None => Actions.ChangeSelected (Some 0)
   }
 };
 
@@ -32,7 +31,7 @@ let handleKeyPress dispatch results selected event =>
     switch selected {
     | Some id =>
       ReactEventRe.Keyboard.preventDefault event;
-      dispatch (Store.Action (Actions.ChooseSelected results.(id)))
+      dispatch (Actions.ChooseSelected results.(id))
     | None => ()
     }
   | _ => ()

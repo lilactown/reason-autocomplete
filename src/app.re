@@ -4,6 +4,12 @@ let component = ReasonReact.statelessComponent "App";
 
 let selectedStyle = ReactDOMRe.Style.make backgroundColor::"#db4d3f" ();
 
+let isSelected selected current =>
+  switch selected {
+  | Some i => i == current
+  | None => false
+  };
+
 let make ::term ::results ::selected ::dispatch _children => {
   let updateTerm event => {
     let newTerm = (ReactDOMRe.domElementToObj (ReactEventRe.Form.target event))##value;
@@ -25,7 +31,7 @@ let make ::term ::results ::selected ::dispatch _children => {
                     Array.mapi
                       (
                         fun i title =>
-                          if (i == selected) {
+                          if (isSelected selected i) {
                             <li key=title style=selectedStyle>
                               (ReasonReact.stringToElement title)
                             </li>

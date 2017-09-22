@@ -1,6 +1,7 @@
 type state = {
   term: string,
-  results: array string
+  results: array string,
+  selected: option int
 };
 
 let root (state: state) action =>

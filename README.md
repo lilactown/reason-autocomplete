@@ -1,3 +1,11 @@
+# reason-autocomplete
+
+An example [Reason](https://reasonml.github.io/) project using [ReasonReact](https://reasonml.github.io/reason-react/) that implements an autocompleting input based on Wikipedia's search API.
+
+It also contains a [minimal implementation of the Redux architecture](https://github.com/Lokeh/reason-autocomplete/blob/master/src/store.re) using [Most.js](https://github.com/Lokeh/bs-most) that provides middleware via streams (aka "epics")
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
